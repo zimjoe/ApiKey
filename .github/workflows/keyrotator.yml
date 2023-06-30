@@ -1,0 +1,23 @@
+schedules:
+- cron: "0 0 * * *"
+  displayName: Renew Function key
+  branches:
+    include:
+    - main
+
+stages:
+- stage: renew_key 
+  displayName: Renew Function key
+
+  jobs:    
+  - job: renew_key    
+    steps:        
+    - task: AzureCLI@2
+      displayName: Renew Function key
+      inputs:
+        azureSubscription: $SUBSCRIPTION_NAME
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: | 
+          chmod +x .keyrotator.sh
+          ./keyrotator.sh '$SUBSCRIPTION_NAME' '$RESOURCE_GROUP_NAME' 'apikey' '$KEY_VAULT_NAME' '$API_KEY_SECRET_NAME'       
