@@ -1,23 +1,23 @@
-schedules:
-- cron: "0 0 * * *"
-  displayName: Renew Function key
-  branches:
-    include:
-    - main
+on: [push]
 
-stages:
-- stage: renew_key 
-  displayName: Renew Function key
+name: Rotate API Keys
 
-  jobs:    
-  - job: renew_key    
-    steps:        
-    - task: AzureCLI@2
-      displayName: Renew Function key
-      inputs:
-        azureSubscription: $SUBSCRIPTION_NAME
-        scriptType: bash
-        scriptLocation: inlineScript
-        inlineScript: | 
-          chmod +x .keyrotator.sh
-          ./keyrotator.sh '$SUBSCRIPTION_NAME' '$RESOURCE_GROUP_NAME' 'apikey' '$KEY_VAULT_NAME' '$API_KEY_SECRET_NAME'       
+jobs:
+  rotate-keys:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Rotate API Keys
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            chmod +x $GITHUB_WORKSPACE/.github/workflows/keyrotator.sh
+            $GITHUB_WORKSPACE/.github/workflows/keyrotator.sh '${{ vars.SUBSCRIPTION_NAME }}' '${{ vars.RESOURCE_GROUP_NAME }}' 'apikey' '${{ secrets.KEY_VAULT_NAME }}' '${{ vars.API_KEY_SECRET_NAME }}'   

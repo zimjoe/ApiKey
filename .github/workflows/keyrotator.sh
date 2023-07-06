@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 
 # script for rotating keys found at https://www.davidguida.net/azure-function-automatic-keys-renewal/
 
