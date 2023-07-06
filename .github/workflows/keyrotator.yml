@@ -17,6 +17,7 @@ jobs:
         
       - name: Rotate API Keys
         uses: azure/CLI@v1
-        with: |
+        with:
           inlineScript: |
-          ./keyrotator.sh '$SUBSCRIPTION_NAME' '$RESOURCE_GROUP_NAME' 'apikey' '${{ secrets.KEY_VAULT_NAME }}' '$API_KEY_SECRET_NAME'   
+            chmod +x .keyrotator.sh
+            ./keyrotator.sh '$SUBSCRIPTION_NAME' '$RESOURCE_GROUP_NAME' 'apikey' '${{ secrets.KEY_VAULT_NAME }}' '$API_KEY_SECRET_NAME'   
