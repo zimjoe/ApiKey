@@ -20,4 +20,4 @@ jobs:
         with:
           inlineScript: |
             chmod +x $GITHUB_WORKSPACE/.github/workflows/keyrotator.sh
-            $GITHUB_WORKSPACE/.github/workflows/keyrotator.sh '${{ vars.SUBSCRIPTION_NAME }}' '${{ vars.RESOURCE_GROUP_NAME }}' 'apikey' '${{ secrets.KEY_VAULT_NAME }}' '${{ vars.API_KEY_SECRET_NAME }}'   
+            $GITHUB_WORKSPACE/.github/workflows/keyrotator.sh '${{ secrets.SUBSCRIPTION_ID }}' '${{ vars.RESOURCE_GROUP_NAME }}' 'apikey' '${{ secrets.KEY_VAULT_NAME }}' '${{ vars.API_KEY_SECRET_NAME }}'   
