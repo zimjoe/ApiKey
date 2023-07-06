@@ -14,11 +14,11 @@ newKey=$(az functionapp keys set --key-name 'default' \
         --key-type functionKeys \
         --name $appName \
         --resource-group $resourceGroup \
-        --subscription '$subscription' | jq '.value' | tr -d \" )
+        --subscription $subscription | jq '.value' | tr -d \" )
 
 echo "updating value for secret $subscription \ $vaultName \ $secretName ..."
 
-newSecretId=$(az keyvault secret set --subscription '$subscription' \
+newSecretId=$(az keyvault secret set --subscription $subscription \
         --vault-name $vaultName \
         --name $secretName \
         --value $newKey | jq '.id')
