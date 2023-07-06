@@ -9,9 +9,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
+        
       - name: Set up Azure CLI
         uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
         
       - name: Rotate API Keys
         uses: azure/CLI@v1
