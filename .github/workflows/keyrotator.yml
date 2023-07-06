@@ -18,4 +18,4 @@ jobs:
         with: |
           inlineScript: | 
           chmod +x .keyrotator.sh
-          ./keyrotator.sh '$SUBSCRIPTION_NAME' '$RESOURCE_GROUP_NAME' 'apikey' '$KEY_VAULT_NAME' '$API_KEY_SECRET_NAME'   
+          ./keyrotator.sh '$SUBSCRIPTION_NAME' '$RESOURCE_GROUP_NAME' 'apikey' '${{ secrets.KEY_VAULT_NAME }}' '$API_KEY_SECRET_NAME'   
